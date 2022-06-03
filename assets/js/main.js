@@ -10,9 +10,6 @@ YT.ready(_=>{
         playerVars: { "autoplay": 0, "controls": 0, "loop": 1, "playlist": videoId},
         events: {
             "onReady": e => {
-                //Autoplay disabled so fuck this
-                //player.pauseVideo();
-                //player.mute();
                 e.target.setVolume(25);
                 clearInterval(loadInterval)
                 button.innerText = "Don't be afraid, just click"
