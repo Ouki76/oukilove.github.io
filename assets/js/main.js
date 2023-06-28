@@ -1,50 +1,43 @@
-const preloader = document.querySelector(".preloader");
-const button = document.querySelector(".preloader-content_button");
-let animInterval;
-let loadInterval;
+const gravityButtons = document.querySelectorAll('.gravityButton');
 
-const videoId = "x6M2Ih3ZZHk"
-YT.ready(_=>{
-    window.player = new YT.Player("player", {
-        videoId: videoId,
-        playerVars: { "autoplay": 0, "controls": 0, "loop": 1, "playlist": videoId},
-        events: {
-            "onReady": e => {
-                e.target.setVolume(25);
-                clearInterval(loadInterval)
-                button.innerText = "Don't be afraid, just click"
-                button.classList.add("ready");
-                button.addEventListener("click", () => {
-                    animInterval = setInterval(preloaderAnim, 10);
-                    button.classList.add("clicked");
-                });
-            }
-        }
-    });
-})
+function handleMouseMove(e) {
+  if (!isMobileOrTablet()) {
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const h = rect.width / 2;
 
-const loading = ["⠟","⠯","⠷","⠾","⠽","⠻"].reverse();
-let i = 0;
-loadInterval = setInterval( _ => {
-    if (i==loading.length) i=0
-    button.innerText = loading[i];
-    i++
-},100)
+    const x = e.clientX - rect.left - h;
+    const y = e.clientY - rect.top - h;
 
-let j = 1;
-function preloaderAnim() {
-    j -= .01;
-    preloader.style.opacity = j;
+    const r1 = Math.sqrt(x * x + y * y);
+    const r2 = (1 - r1 / h) * r1;
 
-    if (j <= 0) {
-        clearInterval(animInterval);
-        setTimeout(() => {preloader.removeAttribute("style");}, 50);
-        setTimeout(() => {preloader.style.display = "none"; preloader.remove()}, 60);
-    };
+    const angle = Math.atan2(y, x);
+    const tx = Math.round(Math.cos(angle) * r2 * 100) / 100;
+    const ty = Math.round(Math.sin(angle) * r2 * 100) / 100;
 
-    if (j <= 1) {
-        player.unMute();
-        player.playVideo();
-    };
-};
+    const op = r2 / r1 + 0.25;
 
+    btn.style.setProperty('--tx', `${tx}px`);
+    btn.style.setProperty('--ty', `${ty}px`);
+    btn.style.setProperty('--opacity', `${op}`);
+  }
+}
+
+function handleMouseLeave(e) {
+  if (!isMobileOrTablet()) {
+    const btn = e.currentTarget;
+    btn.style.setProperty('--tx', '0px');
+    btn.style.setProperty('--ty', '0px');
+    btn.style.setProperty('--opacity', '0.25');
+  }
+}
+
+function isMobileOrTablet() {
+  return window.matchMedia('(pointer: coarse)').matches;
+}
+
+gravityButtons.forEach((btn) => {
+  btn.addEventListener('mousemove', handleMouseMove);
+  btn.addEventListener('mouseleave', handleMouseLeave);
+});
