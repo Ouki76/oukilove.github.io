@@ -15,12 +15,6 @@ body {
   justify-content: center;
 }
 
-.title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
 .gravityButton {
   display: flex;
   justify-content: center;
