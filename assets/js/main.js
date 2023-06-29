@@ -53,7 +53,9 @@ function onYouTubeIframeAPIReady() {
       events: {
         onReady: (event) => {
           event.target.setVolume(15);
-          event.target.playVideo();
+          document.getElementById('start-button').onclick = _ => {
+            event.target.playVideo();
+          };
         }
       }
     });
@@ -64,16 +66,16 @@ function onYouTubeIframeAPIReady() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const blackBackground = document.getElementById('start-background');
-  const clickButton = document.getElementById('start-button');
+  const startBackground = document.getElementById('start-background');
+  const startButton = document.getElementById('start-button');
   const content = document.getElementById('content');
 
-  clickButton.addEventListener('click', function() {
+  startButton.addEventListener('click', function() {
     content.style.opacity = '1';
     content.style.display = 'block';
-    clickButton.style.opacity = '0';
-    clickButton.style.pointerEvents = 'none';
-    blackBackground.style.opacity = '0';
-    blackBackground.style.pointerEvents = 'none';
+    startButton.style.opacity = '0';
+    startButton.style.pointerEvents = 'none';
+    startBackground.style.opacity = '0';
+    startBackground.style.pointerEvents = 'none';
   });
 });
