@@ -49,7 +49,7 @@ function onYouTubeIframeAPIReady() {
   if (videoId) {
     window.player = new YT.Player('player', {
       videoId: videoId,
-      playerVars: { 'autoplay': 1, 'controls': 0, 'loop': 1, 'playlist': videoId },
+      playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': videoId },
       events: {
         onReady: (event) => {
           event.target.setVolume(15);
