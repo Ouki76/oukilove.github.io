@@ -49,7 +49,7 @@ function onYouTubeIframeAPIReady() {
   if (videoId) {
     window.player = new YT.Player('player', {
       videoId: videoId,
-      playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': videoId },
+      playerVars: { 'autoplay': 1, 'controls': 0, 'loop': 1, 'playlist': videoId },
       events: {
         onReady: (event) => {
           event.target.setVolume(15);
@@ -62,3 +62,18 @@ function onYouTubeIframeAPIReady() {
     playerElement.style.backgroundColor = '#2b2b2b';
   }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const blackBackground = document.getElementById('start-background');
+  const clickButton = document.getElementById('start-button');
+  const content = document.getElementById('content');
+
+  clickButton.addEventListener('click', function() {
+    content.style.opacity = '1';
+    content.style.display = 'block';
+    clickButton.style.opacity = '0';
+    clickButton.style.pointerEvents = 'none';
+    blackBackground.style.opacity = '0';
+    blackBackground.style.pointerEvents = 'none';
+  });
+});
