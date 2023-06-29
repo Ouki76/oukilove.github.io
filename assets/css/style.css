@@ -7,19 +7,18 @@
 }
 
 body {
-  background-color: #111;
+  background-color: #2b2b2b;
   color: #fff;
   min-height: 100vh;
   display: flex;
-  place-items: center;
+  align-items: center;
   justify-content: center;
 }
 
 .gravityButton {
   display: flex;
-  justify-content: center;
   align-items: center;
-  place-items: center;
+  justify-content: center;
   width: 100px;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -66,8 +65,66 @@ body {
   transition: fill 0.3s;
 }
 
-#particles-js {
-  position: absolute;
+.main_container_video {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -2;
   width: 100%;
   height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.main_container_video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: -2;
+}
+
+.main_container_video:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  background: rgba(0, 0, 0, 0.503);
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .main_container_video iframe {
+    height: 56.25vw;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .main_container_video iframe {
+    width: 177.78vh;
+  }
+}
+
+@media (max-width: 1100px) {
+  .main_container_video iframe {
+    object-fit: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }

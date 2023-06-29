@@ -41,3 +41,30 @@ gravityButtons.forEach((btn) => {
   btn.addEventListener('mousemove', handleMouseMove);
   btn.addEventListener('mouseleave', handleMouseLeave);
 });
+
+function onYouTubeIframeAPIReady() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const videoId = urlParams.get('id');
+
+  if (videoId) {
+    window.player = new YT.Player('player', {
+      videoId: videoId,
+      playerVars: {
+        autoplay: 1,
+        loop: 1,
+        controls: 0,
+        showinfo: 0,
+        mute: 0
+      },
+      events: {
+        onReady: (event) => {
+          event.target.setVolume(15);
+          event.target.playVideo();
+        }
+      }
+    });
+  } else {
+    const playerElement = document.getElementById('player');
+    playerElement.style.backgroundColor = '#2b2b2b';
+  }
+}
