@@ -45,6 +45,7 @@ gravityButtons.forEach((btn) => {
 function onYouTubeIframeAPIReady() {
   const urlParams = new URLSearchParams(window.location.search);
   const videoId = urlParams.get('id');
+  const volume = urlParams.get('volume');
 
   if (videoId) {
     window.player = new YT.Player('player', {
@@ -52,7 +53,12 @@ function onYouTubeIframeAPIReady() {
       playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': videoId },
       events: {
         onReady: (event) => {
-          event.target.setVolume(15);
+          if (volume) {
+            event.target.setVolume(Number(volume));
+          } else {
+            event.target.setVolume(15);
+          }
+          document.getElementById('start-button').style.display = 'block';
           document.getElementById('start-button').onclick = _ => {
             event.target.playVideo();
           };
@@ -62,6 +68,7 @@ function onYouTubeIframeAPIReady() {
   } else {
     const playerElement = document.getElementById('player');
     playerElement.style.backgroundColor = '#2b2b2b';
+    document.getElementById('start-button').classList.remove('hidden');
   }
 }
 
