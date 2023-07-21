@@ -68,7 +68,7 @@ function onYouTubeIframeAPIReady() {
   } else {
     const playerElement = document.getElementById('player');
     playerElement.style.backgroundColor = '#2b2b2b';
-    document.getElementById('start-button').classList.remove('hidden');
+    document.getElementById('start-button').style.display = 'block';
   }
 }
 
